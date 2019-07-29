@@ -1,0 +1,180 @@
+package kirchnersolutions.javabyte.driver.singleclient;
+
+import kirchnersolutions.javabyte.driver.common.driver.Connector;
+import kirchnersolutions.javabyte.driver.common.driver.DatabaseResults;
+import kirchnersolutions.javabyte.driver.common.driver.Transaction;
+
+import java.util.concurrent.Callable;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+public class SingleClient {
+
+    private volatile Connector con = null;
+    private String ip = "", hostname = "", username= "", password = "";
+    private int port = 0;
+    private SingleClientConnector connector = null;
+    private volatile ConnectorThread connection = null;
+
+    /**
+     * Initiate single client connector.
+     * @param ip
+     * @param hostname
+     * @param port
+     * @param username
+     * @param password
+     */
+    public SingleClient(String ip, String hostname, int port, String username, String password){
+        this.ip = ip;
+        this.port = port;
+        this.username = username;
+        this.password = password;
+        this.hostname = hostname;
+    }
+
+    /**
+     * Logout
+     * @throws Exception
+     */
+    public void logout() throws Exception{
+        connection.stopThread();
+        connector.logout();
+    }
+
+    /**
+     * Start connection and logon.
+     * @return
+     * @throws Exception
+     */
+    public boolean logon() throws Exception{
+        return connect();
+    }
+
+    private boolean connect() throws Exception{
+        connector();
+        if(connection == null && connector.connect()){
+            connection = new ConnectorThread();
+            connection.start();
+            return true;
+        }else if(connection != null && connector.isConnected() && connection.running.get()){
+            return true;
+        }else if(connection != null && connector.isConnected() && !connection.running.get()){
+            connection = new ConnectorThread();
+            connection.start();
+            return true;
+        }else if(connection != null && !connector.isConnected()){
+
+            connection.stopThread();
+            connection = new ConnectorThread();
+            if(connector.connect()){
+                connection.start();
+                return true;
+            }else {
+                return false;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean connector() throws Exception{
+        if(connector == null){
+            this.connector = new SingleClientConnector(this.ip, this.hostname, this.port, this.username, this.password);
+            return true;
+        }
+        return true;
+    }
+
+    private boolean isConnected(){
+        return connector.isConnected();
+    }
+
+    /**
+     * Send a transaction request to database.
+     * @param transaction
+     * @return
+     * @throws Exception
+     */
+    public DatabaseResults sendCommand(Transaction transaction) throws Exception{
+        if(connect()){
+            connection.setTransaction(transaction);
+            return connection.getResults();
+        }
+        //
+        return null;
+    }
+
+    private DatabaseResults sendMessage(Transaction transaction) throws Exception{
+        return connector.sendTransaction(transaction);
+    }
+
+    private class ConnectorThread extends Thread{
+
+        volatile AtomicBoolean running = new AtomicBoolean(false);
+        volatile AtomicBoolean run = new AtomicBoolean(true);
+        volatile AtomicBoolean processing = new AtomicBoolean(false);
+        volatile AtomicBoolean command = new AtomicBoolean(false);
+        volatile Transaction transaction = null;
+        volatile DatabaseResults results = null;
+
+        public void run(){
+            Thread.currentThread().setName(username + " Connection Thread");
+            running.set(true);
+            while (run.get()){
+                if(command.get() && transaction != null){
+                    try{
+                        processing.set(true);
+                        results = sendMessage(transaction);
+                        transaction = null;
+                        command.set(false);
+                        processing.set(false);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        results = new DatabaseResults();
+                        results.setSuccess(false);
+                        results.setMessage(e.getMessage());
+                        transaction = null;
+                        command.set(false);
+                        processing.set(false);
+                    }
+                }else if(command.get() && transaction == null){
+                    processing.set(true);
+                    results = new DatabaseResults();
+                    results.setSuccess(false);
+                    results.setMessage("No transaction set");
+                    transaction = null;
+                    command.set(false);
+                    processing.set(false);
+                }else {
+
+                }
+            }
+        }
+
+        void stopThread(){
+            run.set(false);
+        }
+
+        void setTransaction(Transaction transaction){
+            while(processing.get()){
+
+            }
+            while (command.get()){
+
+            }
+            this.transaction = transaction;
+            command.set(true);
+        }
+
+        DatabaseResults getResults(){
+            while(processing.get()){
+
+            }
+            while (command.get()){
+
+            }
+            return results;
+        }
+
+    }
+
+}

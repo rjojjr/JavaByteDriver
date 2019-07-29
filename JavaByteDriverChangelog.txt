@@ -1,0 +1,11 @@
+JavaByte Driver Changelog
+
+07/28/2019
+1.0.02a:
+	Socket encoding improvements.
+	Logout fixes.
+	Access improvements.
+
+07/22/2019
+1.0.01a:
+	Added transaction access restrictions.
