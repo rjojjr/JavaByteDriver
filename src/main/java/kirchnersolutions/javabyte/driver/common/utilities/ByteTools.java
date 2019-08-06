@@ -32,6 +32,7 @@ public class ByteTools {
     public byte[] remainderBytes = null;
     public int[] modInts = null;
 
+    /*
     public byte[] fileToByteArray(File file) {
         List lBytes = Collections.synchronizedList(new ArrayList());
         try {
@@ -347,6 +348,8 @@ public class ByteTools {
         return genKey;
     }
 
+
+     */
     public static byte[] readBytesFromFile(File file) throws IOException , Exception {
         while (!file.canRead()) {
 
@@ -415,6 +418,7 @@ public class ByteTools {
             }
         }
     }
+    /*
 
     public byte[] compressByteArray(byte[] oBytes) {
         byte[] tBytes = new byte[oBytes.length];
@@ -481,7 +485,7 @@ public class ByteTools {
         }
         return cBytes;
     }
-    
+    /*
     public byte[] decompressByteArray(byte[] cBytes){
         List tBytes = Collections.synchronizedList(new ArrayList());
         int count = 0;
@@ -520,4 +524,6 @@ public class ByteTools {
         }
         return dBytes;
     }
+
+     */
 }

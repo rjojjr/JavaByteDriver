@@ -113,26 +113,8 @@ kirchnersolutions.javabyte.driver.common.utilities.ByteTools -> kirchnersolution
     byte[] remainderBytes -> remainderBytes
     int[] modInts -> modInts
     void <init>() -> <init>
-    byte[] fileToByteArray(java.io.File) -> fileToByteArray
-    boolean byteArrayToFile(java.io.File,byte[]) -> byteArrayToFile
-    java.lang.String bytesToString(byte[]) -> bytesToString
-    boolean compareStringBuilder(java.lang.StringBuilder,java.lang.StringBuilder) -> compareStringBuilder
-    byte[] attachModBytes(java.util.List,byte[]) -> attachModBytes
-    byte[] removeModBytes(byte[]) -> removeModBytes
-    int[] getModInts() -> getModInts
-    int byteArrayToInt(byte[]) -> byteArrayToInt
-    byte[] intToByteArray(int) -> intToByteArray
-    byte[] getRemainders() -> getRemainders
-    java.util.List byteArrayToList(byte[]) -> byteArrayToList
-    java.util.List byteArrayToPaddedList(byte[]) -> byteArrayToPaddedList
-    int[] byteListToIntArray(java.util.List) -> byteListToIntArray
-    byte[] intArrayToByteArray(int[],byte[]) -> intArrayToByteArray
-    byte[] removePadding(byte[]) -> removePadding
-    int keyGen(java.lang.String) -> keyGen
     byte[] readBytesFromFile(java.io.File) -> readBytesFromFile
     void writeBytesToFile(java.io.File,byte[]) -> writeBytesToFile
-    byte[] compressByteArray(byte[]) -> compressByteArray
-    byte[] decompressByteArray(byte[]) -> decompressByteArray
 kirchnersolutions.javabyte.driver.common.utilities.CryptTools -> l:
     kirchnersolutions.javabyte.driver.common.driver.UserSerializer userSerializer -> a
     kirchnersolutions.javabyte.driver.common.driver.TransactionSerializer transactionSerializer -> b
