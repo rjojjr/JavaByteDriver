@@ -1,49 +1,32 @@
 kirchnersolutions.javabyte.driver.common.driver.Connector -> a:
-    kirchnersolutions.javabyte.driver.common.utilities.CryptTools user$568b3d88 -> a
-    java.lang.String ip -> a
-    java.lang.String hostname -> b
-    java.lang.String username -> c
-    java.math.BigInteger password -> a
-    int port -> a
-    kirchnersolutions.javabyte.driver.common.driver.ServerClient client -> a
-    kirchnersolutions.javabyte.driver.common.driver.DatabaseObjectFactory databaseObjectFactory -> a
-    java.util.concurrent.atomic.AtomicBoolean loggedOn -> a
+    kirchnersolutions.javabyte.driver.common.driver.User user -> a
+    java.lang.String ip -> b
+    java.lang.String hostname -> c
+    java.lang.String username -> d
+    java.math.BigInteger password -> e
+    int port -> f
+    kirchnersolutions.javabyte.driver.common.driver.ServerClient client -> g
+    kirchnersolutions.javabyte.driver.common.utilities.CryptTools databaseObjectFactory$7d8e2a73 -> h
+    java.util.concurrent.atomic.AtomicBoolean loggedOn -> i
     void <init>(java.lang.String,java.lang.String,int,java.lang.String,java.lang.String) -> <init>
-    boolean connect() -> connect
-    boolean logon() -> a
-    void logout() -> logout
-    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults sendTransaction(kirchnersolutions.javabyte.driver.common.driver.Transaction) -> sendTransaction
-    boolean isConnected() -> isConnected
-    java.lang.String sendMessage(java.lang.String) -> sendMessage
-kirchnersolutions.javabyte.driver.common.driver.DatabaseObjectFactory -> b:
-    kirchnersolutions.javabyte.driver.common.driver.UserSerializer userSerializer -> a
-    kirchnersolutions.javabyte.driver.common.driver.TransactionSerializer transactionSerializer -> a
-    kirchnersolutions.javabyte.driver.common.driver.GeneralSerializer generalSerializer -> a
-    kirchnersolutions.javabyte.driver.common.driver.DatabaseResultSerializer databaseResultSerializer -> a
-    void <init>() -> <init>
-    kirchnersolutions.javabyte.driver.common.driver.DatabaseObjectInterface databaseObjectFactory(byte[]) -> databaseObjectFactory
-    byte[] databaseSerialFactory(kirchnersolutions.javabyte.driver.common.driver.DatabaseObjectInterface) -> databaseSerialFactory
-    byte[] attachHeader(kirchnersolutions.javabyte.driver.common.driver.DatabaseObjectInterface) -> a
-    byte[] removeHeader(byte[]) -> a
-kirchnersolutions.javabyte.driver.common.driver.DatabaseObjectInterface -> c:
+    boolean connect() -> a
+    void logout() -> b
+    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults sendTransaction(kirchnersolutions.javabyte.driver.common.driver.Transaction) -> a
+    boolean isConnected() -> c
+    java.lang.String sendMessage(java.lang.String) -> a
+kirchnersolutions.javabyte.driver.common.driver.DatabaseObjectInterface -> b:
     byte getHeader() -> getHeader
-    byte[] serializeObject(java.lang.Object) -> serializeObject
-    java.lang.Object deserializeObject(byte[]) -> deserializeObject
-    byte[] serialize(java.lang.Object) -> serialize
-    java.lang.Object deserialize(byte[]) -> deserialize
-kirchnersolutions.javabyte.driver.common.driver.DatabaseResultSerializer -> d:
+kirchnersolutions.javabyte.driver.common.driver.DatabaseResultSerializer -> c:
     void <init>() -> <init>
-    byte[] serialize(kirchnersolutions.javabyte.driver.common.driver.DatabaseResults) -> serialize
-    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults deserialize(byte[]) -> deserialize
-    byte[] serializeObject(java.lang.Object) -> serializeObject
-    java.util.List deserializeObject(byte[]) -> deserializeObject
-    java.lang.Object deserialize(byte[]) -> deserialize
-    byte[] serialize(java.lang.Object) -> serialize
-    java.lang.Object deserializeObject(byte[]) -> deserializeObject
-kirchnersolutions.javabyte.driver.common.driver.DatabaseResults -> e:
+    byte[] serialize(kirchnersolutions.javabyte.driver.common.driver.DatabaseResults) -> a
+    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults deserialize(byte[]) -> a
+    byte[] serializeObject(java.lang.Object) -> a
+    java.util.List deserializeObject(byte[]) -> c
+    java.lang.Object deserializeObject(byte[]) -> b
+kirchnersolutions.javabyte.driver.common.driver.DatabaseResults -> kirchnersolutions.javabyte.driver.common.driver.DatabaseResults:
     java.util.List results -> a
-    boolean success -> a
-    java.lang.String message -> a
+    boolean success -> b
+    java.lang.String message -> c
     void <init>() -> <init>
     void setResults(java.util.List) -> setResults
     void setSuccess(boolean) -> setSuccess
@@ -52,72 +35,51 @@ kirchnersolutions.javabyte.driver.common.driver.DatabaseResults -> e:
     boolean isSuccess() -> isSuccess
     java.lang.String getMessage() -> getMessage
     byte getHeader() -> getHeader
-kirchnersolutions.javabyte.driver.common.driver.Field -> f:
+kirchnersolutions.javabyte.driver.common.driver.Field -> d:
     kirchnersolutions.javabyte.driver.common.driver.FieldSerializer fieldSerializer -> a
-    java.lang.String name -> a
-    java.lang.String value -> b
-    java.io.File file -> a
-    boolean fileSupplied -> a
-    java.lang.String type -> c
-    void <init>(java.io.File) -> <init>
-    void <init>(java.io.File,java.lang.String,java.lang.String,java.lang.String) -> <init>
+    java.lang.String name -> b
+    java.lang.String value -> c
+    java.io.File file -> d
+    boolean fileSupplied -> e
+    java.lang.String type -> f
     void <init>() -> <init>
-    void setFile(java.io.File) -> setFile
-    java.lang.String getName() -> getName
-    java.lang.String getValue() -> getValue
-    java.lang.String getType() -> getType
-    java.io.File getFile() -> getFile
-    void setName(java.lang.String) -> setName
-    void setValue(java.lang.String) -> setValue
-    void setType(java.lang.String) -> setType
     byte getHeader() -> getHeader
-    void write() -> write
-    void read() -> a
-kirchnersolutions.javabyte.driver.common.driver.FieldSerializer -> g:
+kirchnersolutions.javabyte.driver.common.driver.FieldSerializer -> e:
     void <init>() -> <init>
-    byte[] serialize(kirchnersolutions.javabyte.driver.common.driver.Field) -> serialize
-    kirchnersolutions.javabyte.driver.common.driver.Field deserialize(byte[]) -> deserialize
-    kirchnersolutions.javabyte.driver.common.driver.Field deserialize(java.io.File) -> deserialize
-    java.lang.Object deserialize(byte[]) -> deserialize
-    byte[] serialize(java.lang.Object) -> serialize
-kirchnersolutions.javabyte.driver.common.driver.GeneralSerializer -> h:
+kirchnersolutions.javabyte.driver.common.driver.GeneralSerializer -> f:
     void <init>() -> <init>
-    byte[] serialize(java.lang.Object) -> serialize
-    java.lang.Object deserialize(byte[]) -> deserialize
-kirchnersolutions.javabyte.driver.common.driver.ServerClient -> i:
+kirchnersolutions.javabyte.driver.common.driver.Serializer -> g:
+    byte[] serializeObject(java.lang.Object) -> a
+    java.lang.Object deserializeObject(byte[]) -> b
+kirchnersolutions.javabyte.driver.common.driver.ServerClient -> h:
     java.net.Socket clientSocket -> a
-    java.io.PrintWriter out -> a
-    java.io.BufferedReader in -> a
-    java.util.concurrent.atomic.AtomicBoolean connected -> a
+    java.io.PrintWriter out -> b
+    java.io.BufferedReader in -> c
+    java.util.concurrent.atomic.AtomicBoolean connected -> d
     void <init>() -> <init>
-    boolean startConnection(java.lang.String,java.lang.String,int) -> startConnection
-    boolean isConnected() -> isConnected
-    java.lang.String sendMessage(java.lang.String) -> sendMessage
-    void stopConnection() -> stopConnection
-kirchnersolutions.javabyte.driver.common.driver.Transaction -> j:
-    java.util.List select -> a
-    java.util.List oldValues -> b
-    java.util.List results -> c
-    java.util.Map put -> a
-    java.util.Map where -> b
-    java.util.Map put2 -> c
-    java.util.Map where2 -> d
-    java.util.List newRows -> d
-    java.util.List newRows2 -> e
+kirchnersolutions.javabyte.driver.common.driver.Transaction -> kirchnersolutions.javabyte.driver.common.driver.Transaction:
+    java.util.List select -> j
+    java.util.List oldValues -> k
+    java.util.List results -> l
+    java.util.Map put -> m
+    java.util.Map where -> n
+    java.util.Map put2 -> o
+    java.util.Map where2 -> p
+    java.util.List newRows -> q
+    java.util.List newRows2 -> r
     java.lang.String operation -> a
     java.lang.String failMessage -> b
     java.lang.String username -> c
-    java.math.BigInteger password -> a
-    java.math.BigInteger transactionID -> b
-    java.math.BigInteger userIndex -> c
-    java.lang.Long requestTime -> a
-    java.lang.Long finishTime -> b
-    java.math.BigInteger howMany -> d
-    boolean successfull -> a
+    java.math.BigInteger password -> d
+    java.math.BigInteger transactionID -> e
+    java.math.BigInteger userIndex -> f
+    java.lang.Long requestTime -> g
+    java.lang.Long finishTime -> h
+    java.math.BigInteger howMany -> i
+    boolean successfull -> s
     void <init>() -> <init>
     void <init>(java.lang.String,java.math.BigInteger) -> <init>
     void setUsername(java.lang.String) -> setUsername
-    void setFailMessage(java.lang.String) -> setFailMessage
     void setNewRows(java.util.List) -> setNewRows
     void setNewRows2(java.util.List) -> setNewRows2
     void setHowMany(java.math.BigInteger) -> setHowMany
@@ -129,128 +91,89 @@ kirchnersolutions.javabyte.driver.common.driver.Transaction -> j:
     void setOperation(java.lang.String) -> setOperation
     void setRequestTime(java.lang.Long) -> setRequestTime
     void setSelect(java.util.List) -> setSelect
-    java.math.BigInteger getHowMany() -> getHowMany
-    java.math.BigInteger getUserIndex() -> getUserIndex
-    java.lang.String getFailMessage() -> getFailMessage
-    java.math.BigInteger getTransactionID() -> getTransactionID
-    java.util.List getOldValues() -> getOldValues
-    java.util.List getNewRows() -> getNewRows
-    java.util.List getNewRows2() -> getNewRows2
-    java.util.Map getPut2() -> getPut2
-    java.util.Map getWhere2() -> getWhere2
-    java.util.List getResults() -> getResults
-    java.util.List getSelect() -> getSelect
-    java.lang.Long getFinishTime() -> getFinishTime
-    java.lang.Long getRequestTime() -> getRequestTime
-    boolean isSuccessfull() -> isSuccessfull
-    java.util.Map getPut() -> getPut
-    java.util.Map getWhere() -> getWhere
-    java.lang.String getOperation() -> getOperation
-    java.lang.String getUsername() -> getUsername
-    java.math.BigInteger getPassword() -> getPassword
+    java.util.List getNewRows() -> a
+    java.util.List getNewRows2() -> b
+    java.util.Map getPut2() -> c
+    java.util.Map getWhere2() -> d
+    java.util.List getSelect() -> e
+    java.util.Map getPut() -> f
+    java.util.Map getWhere() -> g
     byte getHeader() -> getHeader
-kirchnersolutions.javabyte.driver.common.driver.TransactionSerializer -> k:
+kirchnersolutions.javabyte.driver.common.driver.TransactionSerializer -> i:
     void <init>() -> <init>
-    byte[] serialize(kirchnersolutions.javabyte.driver.common.driver.Transaction) -> serialize
-    kirchnersolutions.javabyte.driver.common.driver.Transaction deserialize(byte[]) -> deserialize
-    byte[] extractBytes(byte[],int,byte[]) -> a
-    byte[] serializeObject(java.lang.Object) -> serializeObject
-    java.util.List deserializeListMap(byte[]) -> deserializeListMap
-    java.util.List deserializeList(byte[]) -> deserializeList
-    java.util.List deserializeListMapIntMap(byte[]) -> deserializeListMapIntMap
-    java.util.Map deserializeMap(byte[]) -> deserializeMap
-    java.lang.Object deserialize(byte[]) -> deserialize
-    byte[] serialize(java.lang.Object) -> serialize
-kirchnersolutions.javabyte.driver.common.driver.UserSerializer -> l:
-    void <init>() -> <init>
-    byte[] serialize$3a99b780(kirchnersolutions.javabyte.driver.common.utilities.CryptTools) -> serialize$3a99b780
-    kirchnersolutions.javabyte.driver.common.utilities.CryptTools deserialize$5a46ed5e(byte[]) -> deserialize$5a46ed5e
-    java.lang.Object deserialize(byte[]) -> deserialize
-    byte[] serialize(java.lang.Object) -> serialize
-kirchnersolutions.javabyte.driver.common.utilities.ByteTools -> m:
-    byte[] remainderBytes -> a
-    int[] modInts -> a
-    void <init>() -> <init>
-    byte[] fileToByteArray(java.io.File) -> a
-    boolean byteArrayToFile(java.io.File,byte[]) -> a
-    java.lang.String bytesToString(byte[]) -> a
-    boolean compareStringBuilder(java.lang.StringBuilder,java.lang.StringBuilder) -> a
-    byte[] attachModBytes(java.util.List,byte[]) -> a
-    byte[] removeModBytes(byte[]) -> a
-    int[] getModInts() -> a
-    int byteArrayToInt(byte[]) -> a
-    byte[] intToByteArray(int) -> a
-    byte[] getRemainders() -> a
-    java.util.List byteArrayToList(byte[]) -> a
-    java.util.List byteArrayToPaddedList(byte[]) -> b
-    int[] byteListToIntArray(java.util.List) -> a
-    byte[] intArrayToByteArray(int[],byte[]) -> a
-    byte[] removePadding(byte[]) -> b
-    int keyGen(java.lang.String) -> a
-    byte[] readBytesFromFile(java.io.File) -> b
-    void writeBytesToFile(java.io.File,byte[]) -> a
-    byte[] compressByteArray(byte[]) -> c
-    byte[] decompressByteArray(byte[]) -> d
-kirchnersolutions.javabyte.driver.common.utilities.CryptTools -> n:
-    java.lang.String VERSION -> a
+    byte[] serialize(kirchnersolutions.javabyte.driver.common.driver.Transaction) -> a
+    byte[] serializeObject(java.lang.Object) -> a
+kirchnersolutions.javabyte.driver.common.driver.User -> j:
     java.util.Map details -> a
-    void <init>() -> <init>
-    byte[][] generateBlocks(byte[]) -> generateBlocks
-    byte[] aesDecrypt(javax.crypto.SecretKey,byte[]) -> aesDecrypt
-    byte[] aesEncrypt(javax.crypto.SecretKey,byte[]) -> aesEncrypt
-    byte[] processList(java.util.List) -> processList
-    javax.crypto.SecretKey generateSecretKey(byte[]) -> generateSecretKey
-    javax.crypto.SecretKey generateRandomSecretKey() -> generateRandomSecretKey
-    byte[] serializeAESKey(javax.crypto.SecretKey) -> serializeAESKey
-    java.io.File serializeAESKey(javax.crypto.SecretKey,java.io.File) -> serializeAESKey
-    javax.crypto.SecretKey deserializeAESKey(byte[]) -> deserializeAESKey
-    javax.crypto.SecretKey deserializeAESKey(java.io.File) -> deserializeAESKey
-    byte[] getSHA256(java.lang.String) -> a
-    byte[] getSHA256(byte[]) -> getSHA256
-    byte[] getSHA256(byte[],byte[]) -> getSHA256
-    byte[] generateRandomBytes(int) -> a
     void <init>(java.util.Map) -> <init>
-    java.lang.String getDetail(java.lang.String) -> a
-    void setDetail(java.lang.String,java.lang.String) -> a
-    java.util.Map getDetails() -> a
     byte getHeader() -> getHeader
-kirchnersolutions.javabyte.driver.singleclient.SingleClient -> o:
+kirchnersolutions.javabyte.driver.common.driver.UserSerializer -> k:
+    void <init>() -> <init>
+kirchnersolutions.javabyte.driver.common.utilities.ByteTools -> kirchnersolutions.javabyte.driver.common.utilities.ByteTools:
+    byte[] remainderBytes -> remainderBytes
+    int[] modInts -> modInts
+    void <init>() -> <init>
+    byte[] fileToByteArray(java.io.File) -> fileToByteArray
+    boolean byteArrayToFile(java.io.File,byte[]) -> byteArrayToFile
+    java.lang.String bytesToString(byte[]) -> bytesToString
+    boolean compareStringBuilder(java.lang.StringBuilder,java.lang.StringBuilder) -> compareStringBuilder
+    byte[] attachModBytes(java.util.List,byte[]) -> attachModBytes
+    byte[] removeModBytes(byte[]) -> removeModBytes
+    int[] getModInts() -> getModInts
+    int byteArrayToInt(byte[]) -> byteArrayToInt
+    byte[] intToByteArray(int) -> intToByteArray
+    byte[] getRemainders() -> getRemainders
+    java.util.List byteArrayToList(byte[]) -> byteArrayToList
+    java.util.List byteArrayToPaddedList(byte[]) -> byteArrayToPaddedList
+    int[] byteListToIntArray(java.util.List) -> byteListToIntArray
+    byte[] intArrayToByteArray(int[],byte[]) -> intArrayToByteArray
+    byte[] removePadding(byte[]) -> removePadding
+    int keyGen(java.lang.String) -> keyGen
+    byte[] readBytesFromFile(java.io.File) -> readBytesFromFile
+    void writeBytesToFile(java.io.File,byte[]) -> writeBytesToFile
+    byte[] compressByteArray(byte[]) -> compressByteArray
+    byte[] decompressByteArray(byte[]) -> decompressByteArray
+kirchnersolutions.javabyte.driver.common.utilities.CryptTools -> l:
+    kirchnersolutions.javabyte.driver.common.driver.UserSerializer userSerializer -> a
+    kirchnersolutions.javabyte.driver.common.driver.TransactionSerializer transactionSerializer -> b
+    kirchnersolutions.javabyte.driver.common.driver.GeneralSerializer generalSerializer -> c
+    kirchnersolutions.javabyte.driver.common.driver.DatabaseResultSerializer databaseResultSerializer -> d
+    void <init>() -> <init>
+    kirchnersolutions.javabyte.driver.common.driver.DatabaseObjectInterface databaseObjectFactory(byte[]) -> a
+    byte[] databaseSerialFactory(kirchnersolutions.javabyte.driver.common.driver.DatabaseObjectInterface) -> a
+kirchnersolutions.javabyte.driver.singleclient.SingleClient -> kirchnersolutions.javabyte.driver.singleclient.SingleClient:
     kirchnersolutions.javabyte.driver.common.driver.Connector con -> a
-    java.lang.String ip -> a
-    java.lang.String hostname -> b
-    java.lang.String username -> c
-    java.lang.String password -> d
-    int port -> a
-    kirchnersolutions.javabyte.driver.singleclient.SingleClientConnector connector -> a
-    kirchnersolutions.javabyte.driver.singleclient.SingleClient$ConnectorThread connection -> a
+    java.lang.String ip -> b
+    java.lang.String hostname -> c
+    java.lang.String username -> d
+    java.lang.String password -> e
+    int port -> f
+    kirchnersolutions.javabyte.driver.singleclient.SingleClientConnector connector -> g
+    kirchnersolutions.javabyte.driver.singleclient.SingleClient$ConnectorThread connection -> h
     void <init>(java.lang.String,java.lang.String,int,java.lang.String,java.lang.String) -> <init>
     void logout() -> logout
     boolean logon() -> logon
     boolean connect() -> a
     boolean connector() -> b
-    boolean isConnected() -> c
     kirchnersolutions.javabyte.driver.common.driver.DatabaseResults sendCommand(kirchnersolutions.javabyte.driver.common.driver.Transaction) -> sendCommand
-    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults sendMessage(kirchnersolutions.javabyte.driver.common.driver.Transaction) -> a
-    java.lang.String access$100(kirchnersolutions.javabyte.driver.singleclient.SingleClient) -> access$100
-    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults access$200(kirchnersolutions.javabyte.driver.singleclient.SingleClient,kirchnersolutions.javabyte.driver.common.driver.Transaction) -> access$200
-kirchnersolutions.javabyte.driver.singleclient.SingleClient$ConnectorThread -> p:
-    java.util.concurrent.atomic.AtomicBoolean running -> running
-    java.util.concurrent.atomic.AtomicBoolean run -> run
-    java.util.concurrent.atomic.AtomicBoolean processing -> processing
-    java.util.concurrent.atomic.AtomicBoolean command -> command
-    kirchnersolutions.javabyte.driver.common.driver.Transaction transaction -> transaction
-    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults results -> results
-    kirchnersolutions.javabyte.driver.singleclient.SingleClient this$0 -> this$0
+    java.lang.String access$100(kirchnersolutions.javabyte.driver.singleclient.SingleClient) -> a
+    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults access$200(kirchnersolutions.javabyte.driver.singleclient.SingleClient,kirchnersolutions.javabyte.driver.common.driver.Transaction) -> a
+kirchnersolutions.javabyte.driver.singleclient.SingleClient$ConnectorThread -> m:
+    java.util.concurrent.atomic.AtomicBoolean running -> a
+    java.util.concurrent.atomic.AtomicBoolean run -> f
+    java.util.concurrent.atomic.AtomicBoolean processing -> b
+    java.util.concurrent.atomic.AtomicBoolean command -> c
+    kirchnersolutions.javabyte.driver.common.driver.Transaction transaction -> d
+    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults results -> e
+    kirchnersolutions.javabyte.driver.singleclient.SingleClient this$0 -> g
     void <init>(kirchnersolutions.javabyte.driver.singleclient.SingleClient) -> <init>
     void run() -> run
-    void stopThread() -> stopThread
-    void setTransaction(kirchnersolutions.javabyte.driver.common.driver.Transaction) -> setTransaction
-    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults getResults() -> getResults
-    void <init>(kirchnersolutions.javabyte.driver.singleclient.SingleClient,kirchnersolutions.javabyte.driver.common.driver.Connector) -> <init>
-kirchnersolutions.javabyte.driver.singleclient.SingleClientConnector -> q:
+    void stopThread() -> a
+    void <init>(kirchnersolutions.javabyte.driver.singleclient.SingleClient,byte) -> <init>
+kirchnersolutions.javabyte.driver.singleclient.SingleClientConnector -> n:
     void <init>(java.lang.String,java.lang.String,int,java.lang.String,java.lang.String) -> <init>
-    boolean connect() -> connect
-    boolean isConnected() -> isConnected
-    java.lang.String sendMessage(java.lang.String) -> sendMessage
-    void logout() -> logout
-    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults sendTransaction(kirchnersolutions.javabyte.driver.common.driver.Transaction) -> sendTransaction
+    boolean connect() -> a
+    boolean isConnected() -> c
+    java.lang.String sendMessage(java.lang.String) -> a
+    void logout() -> b
+    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults sendTransaction(kirchnersolutions.javabyte.driver.common.driver.Transaction) -> a

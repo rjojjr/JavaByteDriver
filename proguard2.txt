@@ -15,63 +15,20 @@
 -dontnote 
 -defaultpackage '' 
 
-
--keep,allowobfuscation class kirchnersolutions.javabyte.driver.singleclient.SingleClient
-
--keepclassmembers,allowobfuscation class * {
-    <fields>;
-    <methods>;
-	!protected *; 
-}
-
-# !private *; also tried this but it didn't work
--keep,allowobfuscation class kirchnersolutions.javabyte.driver.common.driver.Transaction
-
--keepclassmembers,allowobfuscation class * {
-    <fields>;
-    <methods>;
-}
-
--keepclassmembers class kirchnersolutions.javabyte.driver.common.driver.* {
-  !protected !private *;
-}
-
--keepclassmembers class kirchnersolutions.javabyte.driver.common.utilities.* {
-  !public !protected !private *;
-}
-
--keepclassmembers class kirchnersolutions.javabyte.driver.singleclient.* {
-  !protected !private *;
-}
-
-# !private *; also tried this but it didn't work
--keep,allowobfuscation class kirchnersolutions.javabyte.driver.common.driver.DatabaseResults
-
--keepclassmembers,allowobfuscation class * {
-    <fields>;
-    <methods>;
-}
-
--keep,allowshrinking,allowoptimization,allowobfuscation class kirchnersolutions.javabyte.driver.singleclient.SingleClient
-
--keepclassmembers,allowshrinking,allowoptimization,allowobfuscation class kirchnersolutions.javabyte.driver.singleclient.SingleClient {
-    public <fields>;
+-keepclassmembers public class kirchnersolutions.javabyte.driver.common.driver.Transaction  {
     public <methods>;
-}
-
--keepclassmembers,allowshrinking,allowoptimization,allowobfuscation class kirchnersolutions.javabyte.driver.common.driver.Transaction {
     public <fields>;
-    public <methods>;
 }
 
--keep,allowshrinking,allowoptimization,allowobfuscation class kirchnersolutions.javabyte.driver.common.driver.Transaction
-
--keepclassmembers,allowshrinking class kirchnersolutions.javabyte.driver.common.driver.DatabaseResults {
+-keepclassmembers public class kirchnersolutions.javabyte.driver.common.driver.DatabaseResult  {
+    public <methods>;
     public <fields>;
-    public <methods>;
 }
 
--keep,allowshrinking,allowoptimization,allowobfuscation class kirchnersolutions.javabyte.driver.common.driver.DatabaseResults
+-keepclassmembers public class kirchnersolutions.javabyte.driver.singleclient.SingleClient  {
+    public <methods>;
+    public <fields>;
+}
 
 # Keep - Applications. Keep all application classes, along with their 'main' methods.
 -keepclasseswithmembers public class * {

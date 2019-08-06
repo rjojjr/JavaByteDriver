@@ -1,19 +1,42 @@
 -injars build\libs\JavaByteDriver-1.0.02a.jar
--outjars build\libs\JavaByteDriver-1.0.02a-pro.jar
+-outjars build\libs\JavaByteDriver-1.0.02.jar
 
 -libraryjars 'C:\Program Files\Java\jre1.8.0_212\lib\rt.jar'
 -libraryjars 'C:\Program Files\Java\jdk1.8.0_212\jre\lib\jce.jar'
 
 -optimizationpasses 5
--dontusemixedcaseclassnames
--dontskipnonpubliclibraryclasses
--dontpreverify
--verbose
 
--keepmembers,allowoptimization public class * {
-    public <methods>;
-    public <fields>;
-}
+-printmapping mapping.map
+
+-keepclasseswithmembers,allowshrinking,allowoptimization,allowobfuscation class * 
+
+-keep public class kirchnersolutions.javabyte.driver.common.driver.Transaction { 
+	public <methods>;
+	public <fields>;
+ }
+
+-keep public class kirchnersolutions.javabyte.driver.common.driver.DatabaseResults { 
+	public <methods>;
+	public <fields>;
+ }
+
+-keep class kirchnersolutions.javabyte.driver.common.utilities.ByteTools { 
+	public <methods>;
+	public <fields>;
+ }
+
+
+
+-keep public class kirchnersolutions.javabyte.driver.singleclient.SingleClient { 
+	public <methods>;
+	public <fields>;
+ }
+
+
+-repackageclasses ''
+-defaultpackage '' 
+-allowaccessmodification
+
 # Keep - Applications. Keep all application classes, along with their 'main' methods.
 -keepclasseswithmembers public class * {
     public static void main(java.lang.String[]);
