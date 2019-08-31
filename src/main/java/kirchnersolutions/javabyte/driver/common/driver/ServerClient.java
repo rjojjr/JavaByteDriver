@@ -25,9 +25,9 @@ class ServerClient {
     private volatile AtomicBoolean connected = new AtomicBoolean(false);
  
     boolean startConnection(String hostName, String ip, int port) throws IOException, IllegalArgumentException {
-        if(ip.equals(" ") && !hostName.equals("") && port > 0){
+        if(ip.equals(" ") && !hostName.equals(" ") && port > 0){
             ip = InetAddress.getByName(hostName).toString();
-        } else if(ip.equals("") && hostName.equals("")){
+        } else if(ip.equals(" ") && hostName.equals(" ")){
             throw new IllegalArgumentException("Invalid host arguments");
         }
         if(port <= 0){
