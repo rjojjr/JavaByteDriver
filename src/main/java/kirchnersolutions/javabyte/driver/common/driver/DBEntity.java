@@ -47,7 +47,6 @@ public class DBEntity {
      * @throws Exception
      */
     public boolean update(List<Map<String, String>> newValues) throws Exception{
-        List<String> suc = new ArrayList<>();
         for(Map<String, String> map : newValues){
             boolean contain = false;
             for(Map<String, String> old : databaseResults.getResults()){

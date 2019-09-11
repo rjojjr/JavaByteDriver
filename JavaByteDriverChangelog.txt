@@ -1,5 +1,9 @@
 JavaByte Driver Changelog
 
+09/11/2019
+1.0.05a
+	Implemented Enterprise API.
+
 09/10/2019
 1.0.04a
 	Added DBEntity.

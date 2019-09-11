@@ -57,13 +57,13 @@ public class Connector {
         return client.isConnected();
     }
 
-    String getUsername(){
+     public String getUsername(){
         return username;
     }
 
     boolean logon() throws Exception {
         Transaction transaction = new Transaction(username, password);
-        transaction.setRequestTime(System.currentTimeMillis());
+        //transaction.setRequestTime(System.currentTimeMillis());
         //System.out.println("here");
         String input = sendMessage(new String(Base64.getEncoder().encode(databaseObjectFactory.databaseSerialFactory(transaction)), "UTF-8"));
         //System.out.println(input);

@@ -20,7 +20,7 @@ plugins {
 //apply plugin: "io.freefair.lombok"
 
 group 'com.kirchnersolutions.javabytedriver'
-version '1.0.04a'
+version '1.0.05a'
 
 sourceCompatibility = 1.8
 
