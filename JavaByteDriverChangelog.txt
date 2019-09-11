@@ -1,5 +1,15 @@
 JavaByte Driver Changelog
 
+09/10/2019
+1.0.04a
+	Added DBEntity.
+	Transaction automatically sets request time when initialized.
+
+08/30/2019
+1.0.03a:
+	Fix result serial bug.
+	Fix reconnect client.
+
 07/28/2019
 1.0.02a:
 	Socket encoding improvements.

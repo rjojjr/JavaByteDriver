@@ -23,8 +23,14 @@ class ServerClient {
     private BufferedReader in;
 
     private volatile AtomicBoolean connected = new AtomicBoolean(false);
+
+    private String host, add;
+    private int p;
  
     boolean startConnection(String hostName, String ip, int port) throws IOException, IllegalArgumentException {
+        this.host = hostName;
+        this.add = ip;
+        this.p = port;
         if(ip.equals(" ") && !hostName.equals(" ") && port > 0){
             ip = InetAddress.getByName(hostName).toString();
         } else if(ip.equals(" ") && hostName.equals(" ")){
@@ -45,14 +51,25 @@ class ServerClient {
     }
  
     String sendMessage(String msg) throws IOException {
-        if(isConnected()){
-            out.println(msg);
-            //System.out.println("null");
-            String resp = in.readLine();
-            //System.out.println(resp);
-            return resp;
+        try{
+            if(isConnected()){
+                out.println(msg);
+                out.flush();
+                String resp = in.readLine();
+
+                if(resp.contains("-close")){
+                    stopConnection();
+                    connected.set(false);
+
+                    return "closed";
+                }
+                return resp;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            connected.set(false);
         }
-       //
+        stopConnection();
         return null;
     }
  

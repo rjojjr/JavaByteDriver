@@ -19,13 +19,14 @@ public class Transaction implements DatabaseObjectInterface {
 
 
     public Transaction(){
-
+        this.requestTime = System.currentTimeMillis();
     }
 
     public Transaction(String username, BigInteger password){
         this.username = username;
         this.password = password;
         this.operation = new String("LOGON");
+        this.requestTime = System.currentTimeMillis();
     }
 
     /**
@@ -214,7 +215,7 @@ public class Transaction implements DatabaseObjectInterface {
         }
     }
 
-    String getOperation() {
+    public String getOperation() {
         return new String(operation);
     }
 

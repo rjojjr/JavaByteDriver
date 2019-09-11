@@ -1,6 +1,7 @@
 package kirchnersolutions.javabyte.driver.singleclient;
 
 import kirchnersolutions.javabyte.driver.common.driver.Connector;
+import kirchnersolutions.javabyte.driver.common.driver.DBEntity;
 import kirchnersolutions.javabyte.driver.common.driver.DatabaseResults;
 import kirchnersolutions.javabyte.driver.common.driver.Transaction;
 
@@ -96,11 +97,46 @@ public class SingleClient {
      */
     public DatabaseResults sendCommand(Transaction transaction) throws Exception{
         if(connect()){
-            connection.setTransaction(transaction);
-            return connection.getResults();
+            try{
+                connection.setTransaction(transaction);
+                if(connection.getResults() == null){
+                    if(logon()){
+                        connection.setTransaction(transaction);
+                    }else{
+                        DatabaseResults res = new DatabaseResults();
+                        res.setSuccess(false);
+                        res.setMessage("Unable to reconnect");
+                        return res;
+                    }
+                }
+                return connection.getResults();
+            }catch (Exception e){
+                connection.stopThread();
+                connection = null;
+                connector = null;
+                sendCommand(transaction);
+            }
         }
-        //
-        return null;
+        DatabaseResults res = new DatabaseResults();
+        res.setSuccess(false);
+        res.setMessage("Unable to connect");
+        return res;
+    }
+
+    /**
+     * Initialize DBEntity from given SELECT transaction.
+     * Returns null if argument is not a SELECT request.
+     * @param transaction
+     * @return
+     * @throws Exception
+     */
+    public DBEntity getEntity(Transaction transaction) throws Exception{
+        if(!transaction.getOperation().split(" ")[0].equals("SELECT")){
+            return null;
+        }
+        DBEntity entity = new DBEntity(con, transaction);
+        entity.initialize();
+        return entity;
     }
 
     private DatabaseResults sendMessage(Transaction transaction) throws Exception{
@@ -124,6 +160,17 @@ public class SingleClient {
                     try{
                         processing.set(true);
                         results = sendMessage(transaction);
+                        if(results == null){
+                            connection = null;
+                            connector = null;
+                            results = new DatabaseResults();
+                            results.setSuccess(false);
+                            results.setMessage("Error");
+                            run.set(false);
+                            command.set(false);
+                            processing.set(false);
+                            break;
+                        }
                         transaction = null;
                         command.set(false);
                         processing.set(false);
@@ -148,9 +195,11 @@ public class SingleClient {
 
                 }
             }
+            command.set(false);
+            processing.set(false);
         }
 
-        void stopThread(){
+        void  stopThread(){
             run.set(false);
         }
 
