@@ -1,41 +1,53 @@
--injars build\libs\JavaByteDriver-1.0.02a.jar
--outjars build\libs\JavaByteDriver-1.0.02.jar
+-injars build\libs\JavaByteDriver-1.0.05a.jar
+-outjars build\libs\JavaByteDriver-1.0.05.jar
 
 -libraryjars 'C:\Program Files\Java\jre1.8.0_212\lib\rt.jar'
 -libraryjars 'C:\Program Files\Java\jdk1.8.0_212\jre\lib\jce.jar'
 
 -optimizationpasses 5
-
--printmapping mapping.map
-
--keepclasseswithmembers,allowshrinking,allowoptimization,allowobfuscation class * 
-
--keep public class kirchnersolutions.javabyte.driver.common.driver.Transaction { 
-	public <methods>;
-	public <fields>;
- }
-
--keep public class kirchnersolutions.javabyte.driver.common.driver.DatabaseResults { 
-	public <methods>;
-	public <fields>;
- }
-
--keep class kirchnersolutions.javabyte.driver.common.utilities.ByteTools { 
-	public <methods>;
-	public <fields>;
- }
-
-
-
--keep public class kirchnersolutions.javabyte.driver.singleclient.SingleClient { 
-	public <methods>;
-	public <fields>;
- }
-
-
--repackageclasses ''
--defaultpackage '' 
 -allowaccessmodification
+-printmapping mapping.map
+-obfuscationdictionary
+-repackageclasses ''
+
+
+
+-keep public class kirchnersolutions.javabyte.driver.common.driver.Transaction {
+    public <fields>;
+    public <methods>;
+}
+
+-keep public class kirchnersolutions.javabyte.driver.common.driver.DatabaseResults {
+    public <fields>;
+    public <methods>;
+}
+
+-keep class kirchnersolutions.javabyte.driver.common.utilities.ByteTools {
+    public <fields>;
+    public <methods>;
+}
+
+-keep public class kirchnersolutions.javabyte.driver.common.driver.DBEntity {
+    public <fields>;
+    public <methods>;
+}
+
+-keep public class kirchnersolutions.javabyte.driver.enterprise.Engine {
+    public <fields>;
+    public <methods>;
+}
+
+-keep public class kirchnersolutions.javabyte.driver.enterprise.EnterpriseClient {
+    public <fields>;
+    public <methods>;
+}
+
+-keep public class kirchnersolutions.javabyte.driver.singleclient.SingleClient {
+    public <fields>;
+    public <methods>;
+}
+
+-keepclasseswithmembers,allowshrinking,allowoptimization,allowobfuscation class *
 
 # Keep - Applications. Keep all application classes, along with their 'main' methods.
 -keepclasseswithmembers public class * {

@@ -1,12 +1,14 @@
 package kirchnersolutions.javabyte.driver.common.driver;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class DBEntity {
 
-    private Connector connector;
+    private Client connector;
+
     private DatabaseResults databaseResults;
     private Transaction transaction;
     private String tableName;
@@ -14,10 +16,10 @@ public class DBEntity {
 
     /**
      * Construct with select operation.
-     * @param connector
+     * @param client
      * @param transaction
      */
-    public DBEntity(Connector connector, Transaction transaction){
+    public DBEntity(Client client, Transaction transaction){
         this.connector = connector;
         //this.databaseResults = databaseResults;
         this.transaction = transaction;
@@ -30,7 +32,7 @@ public class DBEntity {
      * @throws Exception
      */
     public boolean initialize() throws Exception{
-        databaseResults = connector.sendTransaction(transaction);
+        databaseResults = connector.sendCommand(transaction);
         if(databaseResults.isSuccess()){
             fields = (List<String>)databaseResults.getResults().get(0).keySet();
             return true;
@@ -63,7 +65,7 @@ public class DBEntity {
             req.setRequestTime(System.currentTimeMillis());
             req.setPut(map);
             req.setOperation("PUT ADVANCED " + tableName);
-            DatabaseResults res = connector.sendTransaction(req);
+            DatabaseResults res = connector.sendCommand(req);
             if(!res.isSuccess()){
                 for(Map<String, String> old : databaseResults.getResults()){
                     Transaction req2 = new Transaction();
@@ -71,13 +73,13 @@ public class DBEntity {
                     req2.setRequestTime(System.currentTimeMillis());
                     req2.setPut(map);
                     req2.setOperation("PUT ADVANCED " + tableName);
-                    DatabaseResults roll = connector.sendTransaction(req);
+                    DatabaseResults roll = connector.sendCommand(req);
                 }
                 return false;
             }
         }
         transaction.setRequestTime(System.currentTimeMillis());
-        databaseResults = connector.sendTransaction(transaction);
+        databaseResults = connector.sendCommand(transaction);
         return true;
     }
 

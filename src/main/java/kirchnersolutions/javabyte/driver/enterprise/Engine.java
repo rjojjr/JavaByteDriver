@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadPoolExecutor;
 
-class Engine {
+public class Engine {
 
     private static Engine instance = null;
 

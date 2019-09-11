@@ -1,14 +1,11 @@
 package kirchnersolutions.javabyte.driver.enterprise;
 
-import kirchnersolutions.javabyte.driver.common.driver.Connector;
-import kirchnersolutions.javabyte.driver.common.driver.DBEntity;
-import kirchnersolutions.javabyte.driver.common.driver.DatabaseResults;
-import kirchnersolutions.javabyte.driver.common.driver.Transaction;
+import kirchnersolutions.javabyte.driver.common.driver.*;
 
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class EnterpriseClient {
+public class EnterpriseClient extends Client {
 
     private volatile Connector con = null;
     private String ip = "", hostname = "", username= "", password = "";
@@ -50,6 +47,11 @@ public class EnterpriseClient {
      */
     public boolean logon() throws Exception{
         return connect();
+    }
+
+    @Override
+    public String getUsername(){
+        return username;
     }
 
     private boolean connect() throws Exception{
@@ -97,6 +99,7 @@ public class EnterpriseClient {
      * @return
      * @throws Exception
      */
+    @Override
     public DatabaseResults sendCommand(Transaction transaction) throws Exception{
         if(connect()){
             try{
@@ -136,16 +139,12 @@ public class EnterpriseClient {
         if(!transaction.getOperation().split(" ")[0].equals("SELECT")){
             return null;
         }
-        DBEntity entity = new DBEntity(con, transaction);
+        DBEntity entity = new DBEntity(this, transaction);
         entity.initialize();
         return entity;
     }
 
-    String getUsername(){
-        return connector.getUsername();
-    }
-
-    private DatabaseResults sendMessage(Transaction transaction) throws Exception{
+    public DatabaseResults sendMessage(Transaction transaction) throws Exception{
         return connector.sendTransaction(transaction);
     }
 

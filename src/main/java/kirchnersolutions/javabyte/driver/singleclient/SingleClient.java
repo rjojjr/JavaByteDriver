@@ -1,14 +1,11 @@
 package kirchnersolutions.javabyte.driver.singleclient;
 
-import kirchnersolutions.javabyte.driver.common.driver.Connector;
-import kirchnersolutions.javabyte.driver.common.driver.DBEntity;
-import kirchnersolutions.javabyte.driver.common.driver.DatabaseResults;
-import kirchnersolutions.javabyte.driver.common.driver.Transaction;
+import kirchnersolutions.javabyte.driver.common.driver.*;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class SingleClient {
+public class SingleClient extends Client {
 
     private volatile Connector con = null;
     private String ip = "", hostname = "", username= "", password = "";
@@ -95,6 +92,7 @@ public class SingleClient {
      * @return
      * @throws Exception
      */
+    @Override
     public DatabaseResults sendCommand(Transaction transaction) throws Exception{
         if(connect()){
             try{
@@ -134,7 +132,7 @@ public class SingleClient {
         if(!transaction.getOperation().split(" ")[0].equals("SELECT")){
             return null;
         }
-        DBEntity entity = new DBEntity(con, transaction);
+        DBEntity entity = new DBEntity(this, transaction);
         entity.initialize();
         return entity;
     }

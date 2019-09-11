@@ -1,5 +1,5 @@
--injars build\libs\JavaByteDriver-1.0.02a.jar
--outjars build\libs\JavaByteDriver-1.0.02a-pro.jar
+-injars build\libs\JavaByteDriver-1.0.05a.jar
+-outjars build\libs\JavaByteDriver-1.0.05.jar
 
 -libraryjars 'C:\Program Files\Java\jre1.8.0_212\lib\rt.jar'
 -libraryjars 'C:\Program Files\Java\jdk1.8.0_212\jre\lib\jce.jar'
@@ -26,6 +26,21 @@
 }
 
 -keepclassmembers public class kirchnersolutions.javabyte.driver.singleclient.SingleClient  {
+    public <methods>;
+    public <fields>;
+}
+
+-keepclassmembers public class kirchnersolutions.javabyte.driver.common.driver.DBEntity  {
+    public <methods>;
+    public <fields>;
+}
+
+-keepclassmembers public class kirchnersolutions.javabyte.driver.enterprise.Engine  {
+    public <methods>;
+    public <fields>;
+}
+
+-keepclassmembers public class kirchnersolutions.javabyte.driver.enterprise.EnterpriseClient  {
     public <methods>;
     public <fields>;
 }
