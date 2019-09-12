@@ -3,7 +3,7 @@ package kirchnersolutions.javabyte.driver.common.driver;
 public class Client {
 
     public DatabaseResults sendCommand(Transaction transaction) throws Exception{
-        return null;
+        return new DatabaseResults();
     }
 
     public String getUsername(){

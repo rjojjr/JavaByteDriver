@@ -4,6 +4,7 @@ package kirchnersolutions.javabyte.driver.common.driver;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -235,6 +236,7 @@ public class DatabaseResultSerializer implements Serializer<DatabaseResults> {
                 out.close();
                 bos.close();
                 bytes = bos.toByteArray();
+                bytes = Base64.getEncoder().encode(bytes);
             } catch (Exception e) {
                 throw new Exception("Failed to serialize object");
             }
@@ -251,6 +253,7 @@ public class DatabaseResultSerializer implements Serializer<DatabaseResults> {
      * @throws Exception
      */
     public List<Map<String, String>> deserializeObject(byte[] bytes) throws Exception{
+        bytes = Base64.getDecoder().decode(bytes);
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
         ObjectInputStream in = null;
         List<Map<String, String>> o;

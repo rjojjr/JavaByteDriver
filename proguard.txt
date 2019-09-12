@@ -1,19 +1,59 @@
--injars build\libs\JavaByteDriver-1.0.02a.jar
--outjars build\libs\JavaByteDriver-1.0.02a-pro.jar
+-injars build\libs\JavaByteDriver-1.0.05a.jar
+-outjars build\libs\JavaByteDriver-1.0.05.jar
 
 -libraryjars 'C:\Program Files\Java\jre1.8.0_212\lib\rt.jar'
 -libraryjars 'C:\Program Files\Java\jdk1.8.0_212\jre\lib\jce.jar'
 
 -optimizationpasses 5
--dontusemixedcaseclassnames
--dontskipnonpubliclibraryclasses
--dontpreverify
--verbose
+-allowaccessmodification
+-printmapping mapping.map
+-obfuscationdictionary 'C:\Users\rjojj\OneDrive\NetBeansProjects\JavaByteDriver\dic.txt'
+-repackageclasses ''
 
--keepmembers,allowoptimization public class * {
-    public <methods>;
+
+
+-keep public class kirchnersolutions.javabyte.driver.common.driver.Transaction {
     public <fields>;
+    public <methods>;
 }
+
+-keep public class kirchnersolutions.javabyte.driver.common.driver.DatabaseResults {
+    public <fields>;
+    public <methods>;
+}
+
+-keep class kirchnersolutions.javabyte.driver.common.utilities.ByteTools {
+    public <fields>;
+    public <methods>;
+}
+
+-keep public class kirchnersolutions.javabyte.driver.common.driver.DBEntity {
+    public <fields>;
+    public <methods>;
+}
+
+-keep public class kirchnersolutions.javabyte.driver.common.driver.Client {
+    public <fields>;
+    public <methods>;
+}
+
+-keep public class kirchnersolutions.javabyte.driver.enterprise.Engine {
+    public <fields>;
+    public <methods>;
+}
+
+-keep public class kirchnersolutions.javabyte.driver.enterprise.EnterpriseClient {
+    public <fields>;
+    public <methods>;
+}
+
+-keep public class kirchnersolutions.javabyte.driver.singleclient.SingleClient {
+    public <fields>;
+    public <methods>;
+}
+
+-keepclasseswithmembers,allowshrinking,allowoptimization,allowobfuscation class *
+
 # Keep - Applications. Keep all application classes, along with their 'main' methods.
 -keepclasseswithmembers public class * {
     public static void main(java.lang.String[]);

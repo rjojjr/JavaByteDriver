@@ -1,3 +1,7 @@
+kirchnersolutions.javabyte.driver.common.driver.Client -> kirchnersolutions.javabyte.driver.common.driver.Client:
+    void <init>() -> <init>
+    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults sendCommand(kirchnersolutions.javabyte.driver.common.driver.Transaction) -> sendCommand
+    java.lang.String getUsername() -> getUsername
 kirchnersolutions.javabyte.driver.common.driver.Connector -> a:
     kirchnersolutions.javabyte.driver.common.driver.User user -> a
     java.lang.String ip -> b
@@ -10,10 +14,21 @@ kirchnersolutions.javabyte.driver.common.driver.Connector -> a:
     java.util.concurrent.atomic.AtomicBoolean loggedOn -> i
     void <init>(java.lang.String,java.lang.String,int,java.lang.String,java.lang.String) -> <init>
     boolean connect() -> a
+    boolean logon() -> d
     void logout() -> b
     kirchnersolutions.javabyte.driver.common.driver.DatabaseResults sendTransaction(kirchnersolutions.javabyte.driver.common.driver.Transaction) -> a
     boolean isConnected() -> c
     java.lang.String sendMessage(java.lang.String) -> a
+kirchnersolutions.javabyte.driver.common.driver.DBEntity -> kirchnersolutions.javabyte.driver.common.driver.DBEntity:
+    kirchnersolutions.javabyte.driver.common.driver.Client connector -> a
+    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults databaseResults -> b
+    kirchnersolutions.javabyte.driver.common.driver.Transaction transaction -> c
+    java.lang.String tableName -> d
+    java.util.List fields -> e
+    void <init>(kirchnersolutions.javabyte.driver.common.driver.Client,kirchnersolutions.javabyte.driver.common.driver.Transaction) -> <init>
+    boolean initialize() -> initialize
+    boolean update(java.util.List) -> update
+    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults getDatabaseResults() -> getDatabaseResults
 kirchnersolutions.javabyte.driver.common.driver.DatabaseObjectInterface -> b:
     byte getHeader() -> getHeader
 kirchnersolutions.javabyte.driver.common.driver.DatabaseResultSerializer -> c:
@@ -56,26 +71,31 @@ kirchnersolutions.javabyte.driver.common.driver.ServerClient -> h:
     java.io.PrintWriter out -> b
     java.io.BufferedReader in -> c
     java.util.concurrent.atomic.AtomicBoolean connected -> d
+    java.lang.String host -> e
+    java.lang.String add -> f
+    int p -> g
     void <init>() -> <init>
+    java.lang.String sendMessage(java.lang.String) -> a
+    void stopConnection() -> a
 kirchnersolutions.javabyte.driver.common.driver.Transaction -> kirchnersolutions.javabyte.driver.common.driver.Transaction:
-    java.util.List select -> j
-    java.util.List oldValues -> k
-    java.util.List results -> l
-    java.util.Map put -> m
-    java.util.Map where -> n
-    java.util.Map put2 -> o
-    java.util.Map where2 -> p
-    java.util.List newRows -> q
-    java.util.List newRows2 -> r
-    java.lang.String operation -> a
-    java.lang.String failMessage -> b
-    java.lang.String username -> c
-    java.math.BigInteger password -> d
-    java.math.BigInteger transactionID -> e
-    java.math.BigInteger userIndex -> f
-    java.lang.Long requestTime -> g
-    java.lang.Long finishTime -> h
-    java.math.BigInteger howMany -> i
+    java.util.List select -> i
+    java.util.List oldValues -> j
+    java.util.List results -> k
+    java.util.Map put -> l
+    java.util.Map where -> m
+    java.util.Map put2 -> n
+    java.util.Map where2 -> o
+    java.util.List newRows -> p
+    java.util.List newRows2 -> q
+    java.lang.String operation -> r
+    java.lang.String failMessage -> a
+    java.lang.String username -> b
+    java.math.BigInteger password -> c
+    java.math.BigInteger transactionID -> d
+    java.math.BigInteger userIndex -> e
+    java.lang.Long requestTime -> f
+    java.lang.Long finishTime -> g
+    java.math.BigInteger howMany -> h
     boolean successfull -> s
     void <init>() -> <init>
     void <init>(java.lang.String,java.math.BigInteger) -> <init>
@@ -98,6 +118,7 @@ kirchnersolutions.javabyte.driver.common.driver.Transaction -> kirchnersolutions
     java.util.List getSelect() -> e
     java.util.Map getPut() -> f
     java.util.Map getWhere() -> g
+    java.lang.String getOperation() -> getOperation
     byte getHeader() -> getHeader
 kirchnersolutions.javabyte.driver.common.driver.TransactionSerializer -> i:
     void <init>() -> <init>
@@ -123,6 +144,62 @@ kirchnersolutions.javabyte.driver.common.utilities.CryptTools -> l:
     void <init>() -> <init>
     kirchnersolutions.javabyte.driver.common.driver.DatabaseObjectInterface databaseObjectFactory(byte[]) -> a
     byte[] databaseSerialFactory(kirchnersolutions.javabyte.driver.common.driver.DatabaseObjectInterface) -> a
+kirchnersolutions.javabyte.driver.enterprise.Engine -> kirchnersolutions.javabyte.driver.enterprise.Engine:
+    kirchnersolutions.javabyte.driver.enterprise.Engine instance -> a
+    int port -> b
+    java.lang.String ip -> c
+    java.util.List sessions -> d
+    java.util.concurrent.ThreadPoolExecutor threadPoolExecutor -> e
+    void <init>(int,java.lang.String,java.util.concurrent.ThreadPoolExecutor) -> <init>
+    kirchnersolutions.javabyte.driver.enterprise.Engine getInstance(int,java.lang.String,java.util.concurrent.ThreadPoolExecutor) -> getInstance
+    kirchnersolutions.javabyte.driver.enterprise.EnterpriseClient getNewClient(java.lang.String,java.lang.String) -> getNewClient
+    void removeSession(kirchnersolutions.javabyte.driver.enterprise.EnterpriseClient) -> removeSession
+    void trimSessions() -> a
+    void updateList(java.util.List) -> a
+    void <clinit>() -> <clinit>
+kirchnersolutions.javabyte.driver.enterprise.EnterpriseClient -> kirchnersolutions.javabyte.driver.enterprise.EnterpriseClient:
+    kirchnersolutions.javabyte.driver.common.driver.Connector con -> a
+    java.lang.String ip -> b
+    java.lang.String hostname -> c
+    java.lang.String username -> d
+    java.lang.String password -> e
+    int port -> f
+    kirchnersolutions.javabyte.driver.enterprise.EnterpriseClientConnector connector -> g
+    kirchnersolutions.javabyte.driver.enterprise.EnterpriseClient$ConnectorThread connection -> h
+    java.util.concurrent.ThreadPoolExecutor threadPoolExecutor -> i
+    void <init>(java.lang.String,java.lang.String,int,java.lang.String,java.lang.String,java.util.concurrent.ThreadPoolExecutor) -> <init>
+    void logout() -> logout
+    boolean logon() -> logon
+    java.lang.String getUsername() -> getUsername
+    boolean connect() -> a
+    boolean connector() -> b
+    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults sendCommand(kirchnersolutions.javabyte.driver.common.driver.Transaction) -> sendCommand
+    kirchnersolutions.javabyte.driver.common.driver.DBEntity getEntity(kirchnersolutions.javabyte.driver.common.driver.Transaction) -> getEntity
+    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults sendMessage(kirchnersolutions.javabyte.driver.common.driver.Transaction) -> sendMessage
+    java.lang.String access$100(kirchnersolutions.javabyte.driver.enterprise.EnterpriseClient) -> a
+    kirchnersolutions.javabyte.driver.enterprise.EnterpriseClient$ConnectorThread access$202$2ef387a1(kirchnersolutions.javabyte.driver.enterprise.EnterpriseClient) -> b
+    kirchnersolutions.javabyte.driver.enterprise.EnterpriseClientConnector access$302$2b311ff5(kirchnersolutions.javabyte.driver.enterprise.EnterpriseClient) -> c
+kirchnersolutions.javabyte.driver.enterprise.EnterpriseClient$ConnectorThread -> m:
+    java.util.concurrent.atomic.AtomicBoolean running -> a
+    java.util.concurrent.atomic.AtomicBoolean run -> b
+    java.util.concurrent.atomic.AtomicBoolean processing -> c
+    java.util.concurrent.atomic.AtomicBoolean command -> d
+    kirchnersolutions.javabyte.driver.common.driver.Transaction transaction -> e
+    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults results -> f
+    kirchnersolutions.javabyte.driver.enterprise.EnterpriseClient this$0 -> g
+    void <init>(kirchnersolutions.javabyte.driver.enterprise.EnterpriseClient) -> <init>
+    void run() -> run
+    void stopThread() -> a
+    void setTransaction(kirchnersolutions.javabyte.driver.common.driver.Transaction) -> a
+    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults getResults() -> b
+    void <init>(kirchnersolutions.javabyte.driver.enterprise.EnterpriseClient,byte) -> <init>
+kirchnersolutions.javabyte.driver.enterprise.EnterpriseClientConnector -> n:
+    void <init>(java.lang.String,java.lang.String,int,java.lang.String,java.lang.String) -> <init>
+    boolean connect() -> a
+    boolean isConnected() -> c
+    java.lang.String sendMessage(java.lang.String) -> a
+    void logout() -> b
+    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults sendTransaction(kirchnersolutions.javabyte.driver.common.driver.Transaction) -> a
 kirchnersolutions.javabyte.driver.singleclient.SingleClient -> kirchnersolutions.javabyte.driver.singleclient.SingleClient:
     kirchnersolutions.javabyte.driver.common.driver.Connector con -> a
     java.lang.String ip -> b
@@ -138,21 +215,27 @@ kirchnersolutions.javabyte.driver.singleclient.SingleClient -> kirchnersolutions
     boolean connect() -> a
     boolean connector() -> b
     kirchnersolutions.javabyte.driver.common.driver.DatabaseResults sendCommand(kirchnersolutions.javabyte.driver.common.driver.Transaction) -> sendCommand
+    kirchnersolutions.javabyte.driver.common.driver.DBEntity getEntity(kirchnersolutions.javabyte.driver.common.driver.Transaction) -> getEntity
+    java.lang.String getUsername() -> getUsername
     java.lang.String access$100(kirchnersolutions.javabyte.driver.singleclient.SingleClient) -> a
     kirchnersolutions.javabyte.driver.common.driver.DatabaseResults access$200(kirchnersolutions.javabyte.driver.singleclient.SingleClient,kirchnersolutions.javabyte.driver.common.driver.Transaction) -> a
-kirchnersolutions.javabyte.driver.singleclient.SingleClient$ConnectorThread -> m:
+    kirchnersolutions.javabyte.driver.singleclient.SingleClient$ConnectorThread access$302$650edd96(kirchnersolutions.javabyte.driver.singleclient.SingleClient) -> b
+    kirchnersolutions.javabyte.driver.singleclient.SingleClientConnector access$402$1e96aa20(kirchnersolutions.javabyte.driver.singleclient.SingleClient) -> c
+kirchnersolutions.javabyte.driver.singleclient.SingleClient$ConnectorThread -> o:
     java.util.concurrent.atomic.AtomicBoolean running -> a
-    java.util.concurrent.atomic.AtomicBoolean run -> f
-    java.util.concurrent.atomic.AtomicBoolean processing -> b
-    java.util.concurrent.atomic.AtomicBoolean command -> c
-    kirchnersolutions.javabyte.driver.common.driver.Transaction transaction -> d
-    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults results -> e
+    java.util.concurrent.atomic.AtomicBoolean run -> b
+    java.util.concurrent.atomic.AtomicBoolean processing -> c
+    java.util.concurrent.atomic.AtomicBoolean command -> d
+    kirchnersolutions.javabyte.driver.common.driver.Transaction transaction -> e
+    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults results -> f
     kirchnersolutions.javabyte.driver.singleclient.SingleClient this$0 -> g
     void <init>(kirchnersolutions.javabyte.driver.singleclient.SingleClient) -> <init>
     void run() -> run
     void stopThread() -> a
+    void setTransaction(kirchnersolutions.javabyte.driver.common.driver.Transaction) -> a
+    kirchnersolutions.javabyte.driver.common.driver.DatabaseResults getResults() -> b
     void <init>(kirchnersolutions.javabyte.driver.singleclient.SingleClient,byte) -> <init>
-kirchnersolutions.javabyte.driver.singleclient.SingleClientConnector -> n:
+kirchnersolutions.javabyte.driver.singleclient.SingleClientConnector -> p:
     void <init>(java.lang.String,java.lang.String,int,java.lang.String,java.lang.String) -> <init>
     boolean connect() -> a
     boolean isConnected() -> c

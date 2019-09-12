@@ -137,6 +137,11 @@ public class SingleClient extends Client {
         return entity;
     }
 
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
     private DatabaseResults sendMessage(Transaction transaction) throws Exception{
         return connector.sendTransaction(transaction);
     }
