@@ -1,4 +1,6 @@
-package kirchnersolutions.javabyte.driver.common.utilities;
+package kirchnersolutions.javabyte.driver.common.driver;
+
+import kirchnersolutions.javabyte.driver.common.utilities.ByteTools;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -23,7 +25,6 @@ public class CryptTools {
 
     public static final String VERSION = "1.0.02";
 
-    /*
     static Map<String, Object> getRSAKeys() throws Exception {
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
         keyPairGenerator.initialize(2048);
@@ -61,7 +62,40 @@ public class CryptTools {
 
     }
 
+    static String decryptRSAMsg(String encryptedText, PrivateKey privateKey) throws Exception {
+        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS5Padding");
+        cipher.init(Cipher.DECRYPT_MODE, privateKey);
+        return new String(cipher.doFinal(encryptedText.getBytes("UTF-8")));
+    }
+
+    /*
+    public static String  encrypt(String text, PublicKey publicKey) throws Exception {
+        // Set the plain text
+        com.nimbusds.jose.Payload payload = new Payload(text);
+        // Create the header
+        JWEHeader header = new JWEHeader(RSA_OAEP_256, EncryptionMethod.A128CBC_HS256);
+        // Create the JWE object and encrypt it
+        JWEObject jweObject = new JWEObject(header, payload);
+        jweObject.encrypt(new RSAEncrypter(publicKey);
+        // Serialise to compact JOSE form...
+        String jweString = jweObject.serialize();
+        LOG.info("Generated Encrypted Key : {}", jweString);
+        return jweString;
+    }
+
      */
+
+    static String encryptRSAMsg(java.lang.String plainText, PublicKey publicKey) throws Exception {
+        /*
+        Cipher cipher = Cipher.getInstance("RSA");
+        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+        return new String(Base64.getEncoder().encode(cipher.doFinal(java.util.Base64.getDecoder().decode(plainText))), "UTF-8");
+
+         */
+        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS5Padding");
+        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+        return new java.lang.String(cipher.doFinal(plainText.getBytes("UTF-8")), "UTF-8");
+    }
 
     static byte[][] generateBlocks(byte[] data){
         int size = data.length / 16;

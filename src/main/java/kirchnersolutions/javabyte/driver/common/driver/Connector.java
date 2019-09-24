@@ -1,7 +1,5 @@
 package kirchnersolutions.javabyte.driver.common.driver;
 
-import kirchnersolutions.javabyte.driver.common.utilities.CryptTools;
-
 import java.math.BigInteger;
 import java.util.Base64;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -16,6 +14,7 @@ public class Connector {
     private volatile ServerClient client = null;
     private DatabaseObjectFactory databaseObjectFactory = new DatabaseObjectFactory();
     private volatile AtomicBoolean loggedOn = new AtomicBoolean(false);
+    private Keys keyManager;
 
 
     protected Connector(String ip, String hostname, int port, String username, String password) throws Exception {
@@ -24,36 +23,42 @@ public class Connector {
         this.username = username;
         this.password = new BigInteger(CryptTools.getSHA256(password));
         this.hostname = hostname;
+        keyManager = new Keys();
     }
 
     protected boolean connect() throws Exception {
         if (!isConnected()) {
-
             client = new ServerClient();
-            //System.out.println("here");
             client.startConnection(hostname, ip, port);
-            //System.out.println("here");
             if (client.isConnected()) {
-
-                try {
-                    if(logon()){
-                        //System.out.println("logged on");
-                        loggedOn.set(true);
-                        return true;
-                    }else {
-                        //System.out.println("not");
-                        loggedOn.set(false);
-                        return false;
+                try{
+                    keyManager.generateRSAKeys();
+                    String key = client.sendMessage(new String(Base64.getEncoder().encode(keyManager.getPublicKey()), "UTF-8"));
+                    if(!keyManager.decryptAESKey(new String(Base64.getDecoder().decode(key)))){
+                        throw new Exception("Failed to complete handshake.");
                     }
+                    try {
+                        if(logon()){
+                            //System.out.println("logged on");
+                            loggedOn.set(true);
+                            return true;
+                        }else {
+                            //System.out.println("not");
+                            loggedOn.set(false);
+                            return false;
+                        }
 
-                } catch (Exception e) {
-                    System.out.println();
-                    loggedOn.set(false);
-                    //throw e;
+                    } catch (Exception e) {
+                        System.out.println();
+                        loggedOn.set(false);
+                        //throw e;
+                    }
+                }catch (Exception e){
+                    System.err.println(e.getMessage());
+                    e.printStackTrace();
                 }
             }
         }
-
         return client.isConnected();
     }
 
@@ -63,15 +68,16 @@ public class Connector {
 
     boolean logon() throws Exception {
         Transaction transaction = new Transaction(username, password);
-        //transaction.setRequestTime(System.currentTimeMillis());
-        //System.out.println("here");
-        String input = sendMessage(new String(Base64.getEncoder().encode(databaseObjectFactory.databaseSerialFactory(transaction)), "UTF-8"));
-        //System.out.println(input);
+        byte[] encrypted = keyManager.encryptAESRequest(databaseObjectFactory.databaseSerialFactory(transaction));
+        if(encrypted == null){
+            throw new Exception("Failed to encrypt request");
+        }
+        String input = sendMessage(new String(Base64.getEncoder().encode(encrypted), "UTF-8"));
         if(input == null){
             client = null;
             return false;
         }
-        user = (User)databaseObjectFactory.databaseObjectFactory(Base64.getDecoder().decode(input));
+        user = (User)databaseObjectFactory.databaseObjectFactory(keyManager.decryptAESResponse(Base64.getDecoder().decode(input)));
         return true;
     }
 
@@ -81,7 +87,7 @@ public class Connector {
             transaction.setOperation("LOGOFF");
             transaction.setUsername(username);
             transaction.setRequestTime(System.currentTimeMillis());
-            sendMessage(new String(Base64.getEncoder().encode(databaseObjectFactory.databaseSerialFactory(transaction)), "UTF-8"));
+            sendMessage(new String(Base64.getEncoder().encode(keyManager.encryptAESRequest(databaseObjectFactory.databaseSerialFactory(transaction))), "UTF-8"));
             user = null;
         }
         if(client.isConnected()){
@@ -94,7 +100,7 @@ public class Connector {
         if(isConnected()){
             transaction.setUsername(username);
             String response = "";
-            if((response = sendMessage(new String(Base64.getEncoder().encode(databaseObjectFactory.databaseSerialFactory(transaction)), "UTF-8"))) == null){
+            if((response = sendMessage(new String(Base64.getEncoder().encode(keyManager.encryptAESRequest(databaseObjectFactory.databaseSerialFactory(transaction))), "UTF-8"))) == null){
                 client.stopConnection();
                 client = null;
                 connect();
@@ -107,18 +113,18 @@ public class Connector {
                 sendTransaction(transaction);
             }
             try{
-                return (DatabaseResults)databaseObjectFactory.databaseObjectFactory(Base64.getDecoder().decode(response.getBytes("UTF-8")));
+                return (DatabaseResults)databaseObjectFactory.databaseObjectFactory(Base64.getDecoder().decode(keyManager.decryptAESResponse(response.getBytes("UTF-8"))));
             }catch (Exception e){
                 if(logon()){
                     transaction.setUsername(username);
-                    return (DatabaseResults)databaseObjectFactory.databaseObjectFactory(Base64.getDecoder().decode(sendMessage(new String(Base64.getEncoder().encode(databaseObjectFactory.databaseSerialFactory(transaction)), "UTF-8")).getBytes("UTF-8")));
+                    return (DatabaseResults)databaseObjectFactory.databaseObjectFactory(Base64.getDecoder().decode(sendMessage(new String(Base64.getEncoder().encode(keyManager.encryptAESRequest(databaseObjectFactory.databaseSerialFactory(transaction))), "UTF-8")).getBytes("UTF-8")));
                 }
                 return null;
             }
         }else {
             if(logon()){
                 transaction.setUsername(username);
-                return (DatabaseResults)databaseObjectFactory.databaseObjectFactory(Base64.getDecoder().decode(sendMessage(new String(Base64.getEncoder().encode(databaseObjectFactory.databaseSerialFactory(transaction)), "UTF-8")).getBytes("UTF-8")));
+                return (DatabaseResults)databaseObjectFactory.databaseObjectFactory(Base64.getDecoder().decode(sendMessage(new String(Base64.getEncoder().encode(keyManager.encryptAESRequest(databaseObjectFactory.databaseSerialFactory(transaction))), "UTF-8")).getBytes("UTF-8")));
             }
             return null;
         }
@@ -134,7 +140,6 @@ public class Connector {
 
     protected String sendMessage(String message) throws Exception {
         if (connect()) {
-
             return client.sendMessage(message);
         }
         return "Not connected";

@@ -1,5 +1,9 @@
 JavaByte Driver Changelog
 
+09/24/2019
+1.0.06a
+	Started socket encryption impl.
+
 09/11/2019
 1.0.05a
 	Implemented Enterprise API.
