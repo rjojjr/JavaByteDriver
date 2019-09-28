@@ -15,11 +15,18 @@ public class Keys {
         RSAKeys = CryptTools.getRSAKeys();
     }
 
-    byte[] getPublicKey(){
-        return CryptTools.getPublicKeyBytes((PublicKey)RSAKeys.get("public"));
+    byte[] getPublicKey() throws Exception{
+        return CryptTools.serializePubKey((PublicKey)RSAKeys.get("public"));
     }
 
-    boolean decryptAESKey(String key) {
+    boolean hasKey(){
+        if(secretKey == null){
+            return false;
+        }
+        return true;
+    }
+
+    boolean decryptAESKey(byte[] key) {
         try{
             secretKey = CryptTools.deserializeAESKey(CryptTools.decryptRSAMsg(key, (PrivateKey)RSAKeys.get("private")).getBytes("UTF-8"));
         }catch (Exception e){

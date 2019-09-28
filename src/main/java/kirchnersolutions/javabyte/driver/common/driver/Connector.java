@@ -28,14 +28,18 @@ public class Connector {
 
     protected boolean connect() throws Exception {
         if (!isConnected()) {
+            keyManager = new Keys();
             client = new ServerClient();
             client.startConnection(hostname, ip, port);
             if (client.isConnected()) {
                 try{
-                    keyManager.generateRSAKeys();
-                    String key = client.sendMessage(new String(Base64.getEncoder().encode(keyManager.getPublicKey()), "UTF-8"));
-                    if(!keyManager.decryptAESKey(new String(Base64.getDecoder().decode(key)))){
-                        throw new Exception("Failed to complete handshake.");
+                    if(!keyManager.hasKey()){
+                        keyManager.generateRSAKeys();
+                        String key = client.sendMessage(new String(Base64.getEncoder().encode(keyManager.getPublicKey()), "UTF-8"));
+                        if(!keyManager.decryptAESKey(Base64.getDecoder().decode(key))){
+                            throw new Exception("Failed to complete handshake.");
+                        }
+                        //System.out.println("Handshake completed");
                     }
                     try {
                         if(logon()){
@@ -49,7 +53,7 @@ public class Connector {
                         }
 
                     } catch (Exception e) {
-                        System.out.println();
+                        //e.printStackTrace();
                         loggedOn.set(false);
                         //throw e;
                     }
